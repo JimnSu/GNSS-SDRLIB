@@ -1,4 +1,4 @@
-#include "../../src/sdr.h"
+﻿#include "../../src/sdr.h"
 using namespace gnsssdrgui;
 
 /* set sdr initialize struct function */
@@ -22,12 +22,16 @@ System::Void SDR::start(System::Object^ obj)
     maindlg^form=(maindlg^)obj;
     char *str,split;
     struct lconv *lc;
-    
+	//将区域设置设定为从操作系统获得的 ANSI 代码页。
     setlocale( LC_ALL, ".ACP" );
+	//读取地域化信息
     lc=localeconv();
+
     split=lc->decimal_point[0];
 
     /* reciver setting */
+	//将托管 String 中的内容复制到非托管内存，并在复制时转换为 ANSI 格式。
+	//将form中设定的数据路径拷贝到sdrini中
     str=(char*)(void*)Marshal::StringToHGlobalAnsi(form->tb_input1->Text);
     memcpy(sdrini.file1,str,strlen(str));
     str=(char*)(void*)Marshal::StringToHGlobalAnsi(form->tb_input2->Text);

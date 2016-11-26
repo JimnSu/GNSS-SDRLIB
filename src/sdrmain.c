@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------
+﻿/*------------------------------------------------------------------------------
 * sdrmain.c : SDR main functions
 *
 * Copyright (C) 2014 Taro Suzuki <gnsssdrlib@gmail.com>
@@ -178,6 +178,7 @@ extern void startsdr(void) /* call as function */
     }
 
     /* data grabber loop */
+	/* data read loop */
     while (!sdrstat.stopflag) {
         if (rcvgrabdata(&sdrini)<0) {
             sdrstat.stopflag=ON;
@@ -255,6 +256,7 @@ extern void *sdrthread(void *arg)
         sdrstat.stopflag=ON;
     }
     sleepms(sdr->no*500);
+	//creat the thread of channel
     SDRPRINTF("**** %s sdr thread %d start! ****\n",sdr->satstr,sdr->no);
 
     while (!sdrstat.stopflag) {
